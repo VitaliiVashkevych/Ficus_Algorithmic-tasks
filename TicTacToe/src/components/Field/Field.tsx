@@ -7,13 +7,17 @@ import { AppContext } from "../../context/AppContext";
 export const Field: React.FC = () => {
   const { cells, win, player, PLAYER_X, PLAYER_O, restart } = useContext(AppContext) as AppContext;
 
+  const currentPlayerTurn = !win && cells.some((cell) => !cell);
+  const winner = player === PLAYER_X ? PLAYER_O : PLAYER_X;
+  const draw = !win && cells.every((cell) => cell !== null);
+
   return (
     <>
-      {!win && cells.some((cell) => !cell ) && <div className="field__title">{player}'s turn</div>}
+      {currentPlayerTurn && <div className="field__title">{player}'s turn</div>}
 
-      {win && <div className="field__title">Winner: {player === PLAYER_X ? PLAYER_O : PLAYER_X} player!</div>}
+      {win && <div className="field__title">Winner: {winner} player!</div>}
 
-      {!win && cells.every((cell) => cell !== null) && <div className="field__title">Draw!</div>}
+      {draw && <div className="field__title">Draw!</div>}
 
       <div className="field">
         {cells.map((cell, index) => {

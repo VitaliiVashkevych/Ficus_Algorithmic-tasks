@@ -8,7 +8,9 @@ interface FieldCell {
 }
 
 export const FieldCell: React.FC<FieldCell> = ({ cell, index }) => {
-  const { handle, win, styleComb } = useContext(AppContext) as AppContext;
+  const { handle, winComb } = useContext(AppContext) as AppContext;
+
+  const highlightWinCells = winComb.includes(index);
 
   return (
     <div
@@ -16,8 +18,7 @@ export const FieldCell: React.FC<FieldCell> = ({ cell, index }) => {
       onClick={() => {
         handle(index);
       }}
-      key={index}
-      style={win && styleComb.includes(index) ? { color: "red" } : {}}
+      style={highlightWinCells ? { color: "red" } : {}}
     >
       {cell}
     </div>
