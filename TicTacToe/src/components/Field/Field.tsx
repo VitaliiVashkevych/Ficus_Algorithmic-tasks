@@ -1,21 +1,21 @@
-import { useContext } from "react";
 import "./Field.css";
 import { FieldCell } from "../FieldCell/FieldCell";
-import { AppContext } from "../../context/AppContext";
+import store from "../../mobx/store";
+import { observer } from 'mobx-react';
+import { PLAYER_O, PLAYER_X } from "../../consts/consts";
 
+const Field: React.FC = () => {
+  const { restart, cells, isWin, player } = store;
 
-export const Field: React.FC = () => {
-  const { cells, win, player, PLAYER_X, PLAYER_O, restart } = useContext(AppContext) as AppContext;
-
-  const currentPlayerTurn = !win && cells.some((cell) => !cell);
+  const currentPlayerTurn = !isWin && cells.some((cell) => !cell);
   const winner = player === PLAYER_X ? PLAYER_O : PLAYER_X;
-  const draw = !win && cells.every((cell) => cell !== null);
+  const draw = !isWin && cells.every((cell) => cell !== '');
 
   return (
     <>
       {currentPlayerTurn && <div className="field__title">{player}'s turn</div>}
 
-      {win && <div className="field__title">Winner: {winner} player!</div>}
+      {isWin && <div className="field__title">Winner: {winner} player!</div>}
 
       {draw && <div className="field__title">Draw!</div>}
 
@@ -31,3 +31,5 @@ export const Field: React.FC = () => {
     </>
   );
 };
+
+export const FieldObserver = observer(Field)
