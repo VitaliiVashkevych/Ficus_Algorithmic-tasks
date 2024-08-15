@@ -1,6 +1,6 @@
 import "./FieldCell.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { check, markCell } from "../../redux/features/gameSlice";
+import { changePlayer, checkWin, markCell } from "../../redux/features/gameSlice";
 
 interface FieldCell {
   cell: string | null;
@@ -16,8 +16,9 @@ export const FieldCell: React.FC<FieldCell> = ({ cell, index }) => {
     <div
       className="field__cell"
       onClick={() => {
+        dispatch(changePlayer(index))
         dispatch(markCell(index))
-        dispatch(check())
+        dispatch(checkWin())
       }}
       style={highlightWinCells ? { color: "red" } : {}}
     >

@@ -18,7 +18,7 @@ export const gameSlice = createSlice({
       state.winComb = [];
     },
 
-    check(state) {
+    checkWin(state) {
       const cells = state.cells;
 
       for (const comb of COMBS) {
@@ -35,20 +35,32 @@ export const gameSlice = createSlice({
     markCell(state, action) {
       const cells = state.cells;
       const index = action.payload;
-      const player = state.player === PLAYER_X ? PLAYER_O : PLAYER_X;
+      const player = state.player === PLAYER_X ? PLAYER_O : PLAYER_X; 
 
       if (state.isWin) {
         return
       }
 
       if (!cells[index]) {
-        cells[index] = state.player;
-        state.player = player;
+        cells[index] = player;
       }
     },
+    changePlayer(state, action) {
+      const cell = state.cells[action.payload];
+
+      if (cell || state.isWin) {
+        return
+      }
+
+      if (state.player === PLAYER_X) {
+        state.player = PLAYER_O
+      } else {
+        state.player = PLAYER_X
+      }
+    }
   }
 })
 
-export const { restart, markCell, check } = gameSlice.actions
+export const { restart, markCell, checkWin, changePlayer } = gameSlice.actions
 
 export default gameSlice.reducer
