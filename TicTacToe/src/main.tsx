@@ -3,8 +3,17 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
+import { createCtx, connectLogger } from '@reatom/framework'
+import { reatomContext } from '@reatom/npm-react';
+
+const ctx = createCtx();
+
+connectLogger(ctx);
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <reatomContext.Provider value={ctx}>
+      <App />
+    </reatomContext.Provider>
   </React.StrictMode>,
 )

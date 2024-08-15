@@ -1,26 +1,32 @@
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { reatomComponent, useAction, useAtom } from "@reatom/npm-react";
+import { cellsAtom, markCellAtom, winningCombinationAtom } from "../../ReAtom/model";
 import "./FieldCell.css";
-
-interface FieldCell {
-  cell: string | null,
-  index: number
+interface Context {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  spy: (atom: any) => any;
+}
+interface FieldCellProps {
+  ctx: Context;
+  index: number;
+  cell: string;
 }
 
-export const FieldCell: React.FC<FieldCell> = ({ cell, index }) => {
-  const { handle, winComb } = useContext(AppContext) as AppContext;
+export const FieldCell = reatomComponent(
+  ({ ctx, index, cell }: FieldCellProps) => {
+    const [winningCombination] = useAtom(winningCombinationAtom);
+    const highlightWinCells = winningCombination.includes(index);
+    const markCell = useAction(markCellAtom);
 
-  const highlightWinCells = winComb.includes(index);
-
-  return (
-    <div
-      className="field__cell"
-      onClick={() => {
-        handle(index);
-      }}
-      style={highlightWinCells ? { color: "red" } : {}}
-    >
-      {cell}
-    </div>
-  );
-};
+    return ctx.spy(cellsAtom) && (
+      <div
+        className="field__cell"
+        onClick={() => {
+          markCell(index);
+        }}
+        style={highlightWinCells ? { color: "red" } : {}}
+      >
+        {cell}
+      </div>
+    );
+  }
+);

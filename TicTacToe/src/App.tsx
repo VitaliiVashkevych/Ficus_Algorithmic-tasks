@@ -1,14 +1,13 @@
+import { reatomComponent } from "@reatom/npm-react";
 import "./App.css";
 import { Field } from "./components/Field/Field";
-import { AppContextProvider } from "./context/AppContext";
 
-function App() {
+export const App = reatomComponent(() => {
   return (
-    <AppContextProvider>
-      <div className="app">
-        <h1 className="app__title">TicTacToe</h1>
+    <div className="app">
+      <h1 className="app__title">TicTacToe</h1>
 
-        {/* <div className="gameMode">
+      {/* <div className="gameMode">
         <p>Game Mode:</p>
         <select name="gameMode" id="gameMode" disabled>
           <option value="vsHuman">Player vs. Player</option>
@@ -24,10 +23,9 @@ function App() {
         </select>
       </div> */}
 
-        <Field />
-      </div>
-    </AppContextProvider>
+      <Field />
+    </div>
   );
-}
+});
 
 export default App;
