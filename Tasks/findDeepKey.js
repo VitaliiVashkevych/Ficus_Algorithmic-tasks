@@ -1,24 +1,18 @@
-//UNFINISHED
-
 function findDeepKey(obj, key) {
-  let result = '';
+  let result;
 
-  // if (found) {
-  //   return result
-  // }
-
-  // if (!found) {
-    for (const el in obj) {
-      if (el === key) {
-        found = true;
-        result.push(obj[el]);
-      }
-  
-      if (typeof obj[el] === "object") {
-        findDeepKey(obj[el], key);
-      }
+  for (const el in obj) {
+    if (el === key) {
+      result = obj[el]
+      return result;
     }
-  // }
+
+    if (typeof obj[el] === "object") {
+      result = findDeepKey(obj[el], key);
+    }
+  }
+
+  return result
 }
 
 const data = {
