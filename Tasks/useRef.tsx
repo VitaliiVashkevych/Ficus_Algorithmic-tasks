@@ -45,4 +45,61 @@ function App() {
     </>
   );
 }
-export default App;
+
+
+// TASK 2
+
+// Create a child component with a method that logs a message to the console. Use forwardRef to allow a parent component to access this method using a ref.
+//   Accessing Child Component Methods
+
+const Child = React.forwardRef((props: any, ref: any) => {
+  console.log("I am the child");
+  return <div ref={ref}>Child component</div>;
+})
+
+function App2() {
+  return (
+    <>
+      <Child />
+    </>
+  );
+}
+
+// TASK 3
+// TASK 3
+// Controlling Animations with Refs
+// Create a component with an animated box (e.g., using CSS transitions). Use the useRef hook to control the start and stop of the animation based on user actions.
+
+function App3() {
+  const animationRef = useRef(null);
+  const startAnimation = () => {
+    if (animationRef.current) {
+      (animationRef.current as HTMLElement).className += " animate";
+    }
+  };
+  const stopAnimation = () => {
+    if (animationRef.current) {
+      (animationRef.current as HTMLElement).className = "animation";
+    }
+  };
+
+  const pauseAnimation = () => {
+    if (animationRef.current) { 
+      (animationRef.current as HTMLElement).style.animationPlayState = "paused";
+    }
+  };
+  const resumeAnimation = () => {
+    if (animationRef.current) {
+      (animationRef.current as HTMLElement).style.animationPlayState = "running";
+    }
+  }
+  return (
+    <div className="App">
+      <div id="animation" className="animation" ref={animationRef}></div>
+      <button onClick={startAnimation}>Start</button>
+      <button onClick={stopAnimation}>Stop</button>
+      <button onClick={pauseAnimation}>Pause</button>
+      <button onClick={resumeAnimation}>Resume</button>
+    </div>
+  );
+}
