@@ -31,16 +31,16 @@ const Person22: Person2 = {
 
 // TASK 3
 
-interface Rectangle {
+interface Rectangle1 {
   width: number;
   height: number;
-  readonly area: number;
+  readonly area: () => number;
 }
 
-const rectangle: Rectangle = {
+const rectangle: Rectangle1 = {
   width: 10,
   height: 20,
-  get area() {
+  area: () => {
     return this.width * this.height;
   },
 };
@@ -61,7 +61,7 @@ interface Calculator {
   add: (a: number, b: number) => number;
 }
 
-const calculator: Calculator = {
+const calculator1: Calculator = {
   add(a, b) {
     return a * b;
   },
@@ -101,7 +101,15 @@ const readonly: Readonly2<{ age: number; hobby: string }> = {
   hobby: "Puzzles",
 };
 // TASK 9
-// ???
+// Conditional Types: Create a conditional type IsString<T> that equals true if T is a string, and false otherwise. Write a function that uses this type.
+
+type IsString<T> = T extends string ? true : false;
+// function isString<T>(value: T): IsString<T> {
+//   return typeof value === "string";
+// }
+
+type Result1 = IsString<number>;
+type Result2 = IsString<string>;
 
 //TASK 10
 

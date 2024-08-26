@@ -49,7 +49,7 @@ class Person {
 
 // TASK 4
 
-abstract class Shape {
+abstract class Shape1 {
   getArea: () => number | undefined;
   constructor() {
     this.getArea = () => {
@@ -62,7 +62,7 @@ abstract class Shape {
             (perimeter - this.sideC)
         );
         return area;
-      } else if (this instanceof Circle) {
+      } else if (this instanceof Circle1) {
         return this.radius ** 2 * Math.PI;
       } else {
         throw new Error("Incorrect class");
@@ -70,14 +70,14 @@ abstract class Shape {
     };
   }
 }
-class Circle extends Shape {
+class Circle1 extends Shape1 {
   radius: number;
   constructor(radius: number) {
     super();
     this.radius = radius;
   }
 }
-class Triangle extends Shape {
+class Triangle extends Shape1 {
   sideA: number;
   sideB: number;
   sideC: number;

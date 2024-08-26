@@ -14,8 +14,35 @@ fetchData();
 // Chaining Promises
 // Create two functions firstTask and secondTask. Each function should return a promise. Chain these promises so that secondTask only starts after firstTask resolves.
 
+async function firstTask() {
+  const result = new Promise((resolve) =>
+    resolve(setTimeout(() => console.log("Task 1"), 1000))
+  );
+  return result;
+}
+
+async function secondTask() {
+  const result = new Promise((resolve) =>
+    resolve(setTimeout(() => console.log("Task 2"), 1000))
+  );
+  return result;
+}
+
+firstTask().then(secondTask());
+
 // Async/Await Basics
 // Convert a function fetchUserData that returns a promise into an async function. Use await to wait for the promise to resolve.
+
+async function fetchUserData() {
+  const result = await new Promise((resolve) =>
+    resolve(setTimeout(() => console.log("Data fetched"), 1000))
+  );
+  
+  return result;
+};
+const test = fetchUserData();
+console.log(test);
+
 
 // Handling Errors in Async Functions
 // Write an async function fetchWithErrorHandling that calls a promise-returning function fetchData. If the promise is rejected, catch the error and log it.
